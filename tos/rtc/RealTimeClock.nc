@@ -19,7 +19,8 @@ interface RealTimeClock {
 
 	/**
 	 * Event signalled when RTC time is adjusted.
+	 * The event is async because it could be fired from within stime.
 	 */
-	event void changed(time64_t old, time64_t current);
+	async event void changed(time64_t old, time64_t current);
 
 }
