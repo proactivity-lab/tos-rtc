@@ -35,7 +35,9 @@ implementation {
 		time64_t old = call RealTimeClock.time();
 		m_time = t;
 		m_local = call LocalTime.get();
-		signal RealTimeClock.changed(old, call RealTimeClock.time());
+		if(m_time != old) {
+			signal RealTimeClock.changed(old, m_time);
+		}
 		return SUCCESS;
 	}
 
