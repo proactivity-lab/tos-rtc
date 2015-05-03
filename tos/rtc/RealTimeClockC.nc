@@ -15,4 +15,6 @@ implementation {
 	components LocalTimeSecondC;
 	RealTimeClockP.LocalTime -> LocalTimeSecondC;
 
+	components TimeConversionC;
+
 }
