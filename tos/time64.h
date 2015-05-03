@@ -13,6 +13,7 @@
 
 typedef int64_t time_t; // Also defining time_t, but time64_t should be used almost exclusively.
 typedef int64_t time64_t;
+typedef nx_int64_t nx_time64_t;
 
 // struct tm is defined to be as compact as possible.
 // Care must be taken to cast the values when doing calculations to avoid overflows.
@@ -32,5 +33,19 @@ time64_t mktime(struct tm* t) @C();
 
 // gmtime_r with time64
 struct tm* gmtime_r(const time64_t* timep, struct tm* result) @C();
+
+uint32_t yxktime(time64_t* t) {
+	if(*t != (time64_t)(-1)) {
+		struct tm yxk;
+		gmtime_r(t, &yxk);
+		yxk.tm_sec = 0;
+		yxk.tm_min = 0;
+		yxk.tm_hour = 0;
+		yxk.tm_mon = 0;
+		yxk.tm_year = ((yxk.tm_year) / 100) * 100; // Beginning of century
+		return (uint32_t)(*t - mktime(&yxk));
+	}
+	return UINT32_MAX;
+}
 
 #endif // TIME64_H_
