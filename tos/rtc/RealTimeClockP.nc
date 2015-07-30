@@ -9,6 +9,7 @@
 generic module RealTimeClockP() {
 	provides {
 		interface RealTimeClock;
+		interface Get<time64_t> as Time;
 	}
 	uses {
 		interface LocalTime<TSecond>;
@@ -18,6 +19,10 @@ implementation {
 
 	time64_t m_time = -1; // Time not known
 	uint32_t m_local = 0;
+
+	command time64_t Time.get() {
+		return call RealTimeClock.time();
+	}
 
 	command time64_t RealTimeClock.time() {
 		if(m_time == -1) {
