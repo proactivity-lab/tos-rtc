@@ -34,6 +34,9 @@ time64_t mktime(struct tm* t) @C();
 // gmtime_r with time64
 struct tm* gmtime_r(const time64_t* timep, struct tm* result) @C();
 
+// Add/subtract seconds from a struct tm
+struct tm* tm_add_seconds(struct tm* tm, time64_t seconds) @C();
+
 uint32_t yxktime(time64_t* t) {
 	if(*t != (time64_t)(-1)) {
 		struct tm yxk;
