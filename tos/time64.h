@@ -11,9 +11,11 @@
 	#error This time.h is intended for use with NesC and TinyOS!
 #endif // NESC
 
-typedef int64_t time_t; // Also defining time_t, but time64_t should be used almost exclusively.
 typedef int64_t time64_t;
 typedef nx_int64_t nx_time64_t;
+
+#ifndef TOSSIM
+typedef int64_t time_t; // Also defining time_t, but time64_t should be used almost exclusively.
 
 // struct tm is defined to be as compact as possible.
 // Care must be taken to cast the values when doing calculations to avoid overflows.
@@ -27,6 +29,7 @@ struct tm {
 	uint8_t  tm_wday; // Day of week.  [0-6]
 	uint16_t tm_yday; // Day of year.  [0-365]
 };
+#endif // TOSSIM
 
 // mktime with time64
 time64_t mktime(struct tm* t) @C();
